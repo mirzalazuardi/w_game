@@ -3,13 +3,16 @@ require 'pry'
 class Game
   attr_reader :log, :score, :game
   def initialize(game)
-    @log   = {}
+    @log   = []
     @score = 0
     @game  = game
   end
 
   def new_word
-    @new_word = game.shuffle_word
+    result = game.shuffle_word
+    return stats if log.count == game.words.count
+    return new_word if log.map{ |x| x[:word] }.include? result
+    @new_word = result
   end
 
   def question
@@ -26,9 +29,18 @@ class Game
     loop do
       @answer = prompt.strip
       calculate_score
-      exit if @answer == 'quit'
+      stats if @answer == 'quit'
       puts result
+      @log << {word: @new_word, corrected: corrected?.to_s, score: @score}
     end
+  end
+
+  def stats
+    puts '--stats--'
+    @log.map do |log|
+      puts log.values.join(', ')
+    end
+    exit
   end
 
   def result(result = "SALAH! Silakan coba lagi")
