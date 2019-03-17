@@ -30,10 +30,11 @@ class Game
 
   def result(result = "SALAH! Silakan coba lagi")
     result = "BENAR point anda #{@score}" if corrected?
+    result
   end
 
   def calculate_score
-    (corrected?) ? @score += 1 : @score -= 1
+     @score += 1 if corrected?
   end
 
   def corrected?
