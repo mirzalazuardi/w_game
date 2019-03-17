@@ -18,7 +18,7 @@ class WordGame
 end
 
 RSpec.describe WordGame do
-  subject { described_class.new(words: words) }
+  subject { described_class.new(words) }
   let(:words) { %w[buku pulpen lampu kompas detik tissue] }
 
   describe '#shuffle_word' do
