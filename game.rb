@@ -23,9 +23,12 @@ class Game
   end
 
   def start
-    @answer = prompt.strip
-    calculate_score
-    puts result
+    loop do
+      @answer = prompt.strip
+      calculate_score
+      exit if @answer == 'quit'
+      puts result
+    end
   end
 
   def result(result = "SALAH! Silakan coba lagi")
